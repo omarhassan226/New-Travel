@@ -1,42 +1,152 @@
 .card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 16px;
   margin: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card h2 {
-  padding: 1rem;
-  margin: 0;
-}
-
-.card h4 {
-  margin: 8px 0;
-}
-
-.info-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax( 1fr));
-  gap: 10px;
-  display: flex;
-  justify-content: space-between;
-  /* padding: 1rem; */
-}
-
-.info-box {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 10px;
-  text-align: center;
-  max-width: 200px;
-  margin: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevent overflow from inner elements */
 }
 
 .section-2 {
   display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.card-header {
+  background-color: #f0f0f0;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section1 {
+  margin-top: 24px;
+}
+
+.info-group {
+  display: flex;
   justify-content: space-between;
-  flex-direction: row-reverse;
-  /* padding: 1rem; */
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping */
+}
+
+.info-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Allow wrapping */
+}
+
+.info-box {
+  padding: 16px;
+  margin: 8px; /* Adjust margin for spacing */
+  background-color: #4092ff; /* Bright blue */
+  border: 1px solid #cfd8dc; /* Light gray border */
+  border-radius: 4px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  font-size: 20px;
+  color: white;
+  flex: 1 1 calc(30% - 16px); /* Responsive flex basis */
+  max-width: calc(30% - 16px); /* Ensure it doesn't exceed 30% */
+}
+
+.info-box:hover {
+  background-color: #2874cc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.mat-card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.mat-card-subtitle {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.line-group {
+  display: flex;
+  align-items: center;
+  width: 400px;
+  /* flex-wrap: wrap; */
+}
+
+.line {
+  height: 3px;
+  width: 100%;
+  background-color: black;
+  opacity: 0.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle1,
+.circle2 {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid black;
+  opacity: 0.5;
+}
+
+.small-airPlane {
+  transform: rotate(90deg);
+  z-index: 50;
+}
+
+.small-airPlane-container {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.airline-logo {
+  width: 50px;
+  height: auto;
+  margin-right: 8px;
+}
+
+.duration-line-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .info-box {
+    flex: 1 1 calc(48% - 16px);
+    max-width: calc(48% - 16px);
+  }
+
+  .line-group {
+    width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-box {
+    flex: 1 1 calc(100% - 16px);
+    max-width: calc(100% - 16px);
+  }
+
+  .card {
+    margin: 8px;
+  }
 }

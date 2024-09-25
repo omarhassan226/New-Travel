@@ -1,1 +1,55 @@
-<p>filter works!</p>
+<mat-accordion>
+  <!-- Airlines Filter -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Airlines</mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-form-field appearance="fill">
+      <mat-label>Airlines</mat-label>
+      <mat-select >
+        <mat-option *ngFor="let airline of airlinesList" [value]="airline">{{ airline }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-expansion-panel>
+
+  <!-- Price Filter -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Price</mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="price-slider">
+      <p>EGP <strong>{{ priceRange[0] }}</strong> - EGP <strong>{{ priceRange[1] }}</strong></p>
+      <mat-slider
+
+        [min]="29223"
+        [max]="445349"
+        step="1000"
+        thumbLabel
+        tickInterval="50000"
+        class="price-range-slider"
+      ></mat-slider>
+    </div>
+  </mat-expansion-panel>
+
+  <!-- Stops Filter -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Stops</mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-checkbox  value="Direct">Direct</mat-checkbox>
+    <mat-checkbox value="1 Stop">1 Stop</mat-checkbox>
+  </mat-expansion-panel>
+
+  <!-- Refundable Filter -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Refundable</mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-radio-group >
+      <mat-radio-button value="refundable">Refundable Flights</mat-radio-button>
+    </mat-radio-group>
+  </mat-expansion-panel>
+
+  <!-- Apply Filter Button -->
+  <button mat-raised-button color="primary" (click)="applyFilter()">Apply Filters</button>
+</mat-accordion>

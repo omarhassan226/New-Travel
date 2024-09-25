@@ -1,3 +1,12 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" [mode]="isSmallScreen ? 'over' : 'side'">
+    <app-filter></app-filter>
+  </mat-drawer>
 
-
-  <app-flight-card *ngFor="let item of getFlights()" [flight]="item"></app-flight-card>
+  <div class="example-sidenav-content">
+    <button type="button" mat-button (click)="drawer.toggle()" class="toggle-button">
+      Toggle sidenav
+    </button>
+    <app-flight-card *ngFor="let item of getFlights()" [flight]="item"></app-flight-card>
+  </div>
+</mat-drawer-container>

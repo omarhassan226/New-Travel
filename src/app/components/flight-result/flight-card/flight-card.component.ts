@@ -7,9 +7,9 @@ import { AirItineraries } from 'src/app/models/models';
   styleUrls: ['./flight-card.component.css']
 })
 export class FlightCardComponent implements OnInit {
-  @Input() flight:AirItineraries
+  @Input() flight: AirItineraries;
 
-  cardData:any = {
+  cardData: any = {
     title: 'Air Line',
     subtitle: 'dept time',
     info1: 'arrival time',
@@ -17,7 +17,8 @@ export class FlightCardComponent implements OnInit {
     info3: 'to city',
     info4: 'refund ability',
     info5: 'isDirect',
-    info6: 'total price'
+    info6: 'total price',
+    duration: '' // Add duration property
   };
 
   calculateTotalPriceInEGP(flightData: any): number {
@@ -27,35 +28,84 @@ export class FlightCardComponent implements OnInit {
 
     let totalEGP = 0;
 
-    flightData.passengerFareBreakDownDTOs.forEach((passenger : any) => {
-        passenger.flightFaresDTOs.forEach((fare: any) => {
-            if (fare.currencyCode === 'EGP') {
-                totalEGP += fare.fareAmount;
-            } else if (fare.currencyCode === 'KWD') {
-                totalEGP += fare.fareAmount * egpToKwd;
-            } else if (fare.currencyCode === 'SAR') {
-                totalEGP += fare.fareAmount * egpToSar;
-            } else if (fare.currencyCode === 'USD') {
-                totalEGP += fare.fareAmount * egpToUsd;
-            }
-        });
+    flightData.passengerFareBreakDownDTOs.forEach((passenger: any) => {
+      passenger.flightFaresDTOs.forEach((fare: any) => {
+        if (fare.currencyCode === 'EGP') {
+          totalEGP += fare.fareAmount;
+        } else if (fare.currencyCode === 'KWD') {
+          totalEGP += fare.fareAmount * egpToKwd;
+        } else if (fare.currencyCode === 'SAR') {
+          totalEGP += fare.fareAmount * egpToSar;
+        } else if (fare.currencyCode === 'USD') {
+          totalEGP += fare.fareAmount * egpToUsd;
+        }
+      });
     });
 
     return totalEGP;
-}
-  ngOnInit(): void {
+  }
 
-    const isDirect:string = this.flight.allJourney.flights[0].flightDTO.length > 1 ? "Transit" : "Direct";
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    };
+    return date.toLocaleString('en-US', options);
+  }
+
+  calculateDuration(departureDate: string, arrivalDate: string): string {
+    const departure = new Date(departureDate);
+    const arrival = new Date(arrivalDate);
+    const durationInMinutes = Math.round((arrival.getTime() - departure.getTime()) / 60000);
+
+    const hours = Math.floor(durationInMinutes / 60);
+    const minutes = durationInMinutes % 60;
+
+    return `${hours}h ${minutes}m`; // Format as "Xh Ym"
+  }
+
+  ngOnInit(): void {
+    const isDirect: string = this.flight.allJourney.flights[0].flightDTO.length > 1 ? "Transit" : "Direct";
+    const isRefundable: string = this.flight.isRefundable ? "Refundable" : "Not Refundable";
+
+    const departureDate = this.flight.allJourney.flights[0].flightDTO[0].departureDate;
+    const arrivalDate = this.flight.allJourney.flights[0].flightDTO[0].arrivalDate;
 
     this.cardData = {
-      title: this.flight.allJourney.flights[0].flightAirline.airlineName,
-      subtitle: this.flight.allJourney.flights[0].flightDTO[0].departureDate,
-      info1: this.flight.allJourney.flights[0].flightDTO[0].arrivalDate,
-      info2: this.flight.allJourney.flights[0].flightDTO[0].departureTerminalAirport.countryName,
-      info3: this.flight.allJourney.flights[0].flightDTO[0].arrivalTerminalAirport.countryName,
-      info4: this.flight.isRefundable,
-      info5: isDirect,
-      info6: this.calculateTotalPriceInEGP(this.flight).toFixed(0) + " EGP"
+      airName: this.flight.allJourney.flights[0].flightAirline.airlineName,
+      departureDate: this.formatDate(departureDate),
+      arrivalDate: this.formatDate(arrivalDate),
+      duration: this.calculateDuration(departureDate, arrivalDate), // Calculate and add duration
+      departureCountryName: this.flight.allJourney.flights[0].flightDTO[0].departureTerminalAirport.countryName,
+      arrivalCountryName: this.flight.allJourney.flights[0].flightDTO[0].arrivalTerminalAirport.countryName,
+      refund: isRefundable,
+      direction: isDirect,
+      totalPrice: this.calculateTotalPriceInEGP(this.flight).toFixed(0) + " EGP"
     };
+  }
+
+  private airlineLogos: { [key: string]: string } = {
+    "Nile Air": "../../../../assets/nile-air.svg",
+    "Qatar Airways (Q.C.S.C.)": "../../../../assets/qatar.png",
+    "EgyptAir": "../../../../assets/egyptair.svg",
+    "Royal Jordanian": "../../../../assets/royal-jordanian-airlines-logo.png",
+    "Gulf Air B.S.C. (c)": "../../../../assets/gulf-air.png",
+    "Etihad Airways": "../../../../assets/etihad.png",
+    "Kuwait Airways": "../../../../assets/kuwait.png",
+    "Saudia Arabia Airline": "../../../../assets/saudia-arabia.png",
+    "Oman Air (S.A.O.C.)": "../../../../assets/oman-air-logo.png",
+    "National Air Services / Flynas": "../../../../assets/flynas.png",
+    "Ethiopian Airlines Enterprise": "../../../../assets/ethiopian-airlines.png",
+    "Emirates": "../../../../assets/emirates-airlines-1.svg",
+    "Turkish Airlines Inc.": "../../../../assets/turkish-airlines.png",
+  };
+
+  getAirlineLogo(airline: string): string {
+    return this.airlineLogos[airline] || "../../../../assets/default-airline-logo.svg"; // Fallback logo
   }
 }
