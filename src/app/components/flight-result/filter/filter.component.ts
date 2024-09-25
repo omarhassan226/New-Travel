@@ -7,21 +7,27 @@ import { FlightTravelsService } from 'src/app/shared/services/flight-travels.ser
   styleUrls: ['./filter.component.css']
 })
 export class FilterComponent {
-  priceRange: number[] = [29223, 445349];
-  selectedAirlines: string[] = [];
-  selectedStops: string[] = [];
-  refundableFlights: string = '';
-  airlinesList: string[] = ['Airline 1', 'Airline 2', 'Airline 3'];
 
-  constructor(private flightTravelsService: FlightTravelsService) {}
+  constructor(public flightTravelsService: FlightTravelsService) { }
 
-  applyFilter() {
-    const filters = {
-      airlines: this.selectedAirlines,
-      price: this.priceRange,
-      stops: this.selectedStops,
-      refundable: this.refundableFlights
-    };
-    // this.flightTravelsService.filterFlights(filters); // Pass filters to the service
+  handleRefundChange(e: any) {
+    const value = e.value
+    this.flightTravelsService.filterRefund(value)
+  }
+
+  handleStopsChange(e: any) {
+    const value = e.value
+    this.flightTravelsService.filterStops(value)
+    console.log(value);
+  }
+
+  handleAirlines(e: any) {
+    const value = e.value
+    this.flightTravelsService.filterAirlines(value)
+    console.log(value);
+  }
+
+  getAirlines(){
+    return this.flightTravelsService.airlines
   }
 }

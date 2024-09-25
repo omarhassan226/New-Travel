@@ -10,6 +10,7 @@ import { SelectedFlightComponent } from './bonus/selected-flight/selected-flight
 import { FilterComponent } from './components/flight-result/filter/filter.component';
 import { FlightCardComponent } from './components/flight-result/flight-card/flight-card.component';
 import { SharedModule } from './shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

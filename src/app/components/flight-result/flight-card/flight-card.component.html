@@ -3,21 +3,21 @@
     <div class="section-2">
         <mat-card-title class="card-header">
           <img
-            [src]="getAirlineLogo(cardData.airName)"
+            [src]="flight.allJourney.flights[0].flightAirline.airlineLogo"
             alt="{{ cardData.airName }} logo"
             class="airline-logo"
           />
           {{ cardData.airName }}
         </mat-card-title>
-      <div class="info-group section1">
-        <mat-card class="info-box">{{
-          cardData.departureCountryName
-        }}</mat-card>
-        <mat-icon>arrow_forward</mat-icon>
-        <img src="../../../../assets/plan1.png" width="40px" alt="Flight path" />
-        <mat-icon>arrow_forward</mat-icon>
-        <mat-card class="info-box">{{ cardData.arrivalCountryName }}</mat-card>
-      </div>
+        <div class="info-group section1">
+          <mat-card class="info-box">{{ cardData.departureCountryName }}</mat-card>
+          <mat-icon>arrow_forward</mat-icon>
+          <div class="plane-container">
+            <img src="../../../../assets/plan1.png" width="40px" alt="Flight path" class="plane" />
+          </div>
+          <mat-icon>arrow_forward</mat-icon>
+          <mat-card class="info-box">{{ cardData.arrivalCountryName }}</mat-card>
+        </div>
       <div class="info-group">
         <mat-card class="info-box">{{ cardData.departureDate }}</mat-card>
         <div class="duration-line-container">
@@ -46,7 +46,7 @@
   </mat-card-content>
 
   <mat-card-actions class="actions">
-    <button mat-raised-button color="primary">More Details</button>
+    <button mat-raised-button color="primary" (click)="handleSelectedFlight()">More Details</button>
     <button mat-raised-button color="accent">Book Now</button>
   </mat-card-actions>
 </mat-card>

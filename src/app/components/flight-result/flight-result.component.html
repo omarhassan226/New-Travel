@@ -4,9 +4,9 @@
   </mat-drawer>
 
   <div class="example-sidenav-content">
-    <button type="button" mat-button (click)="drawer.toggle()" class="toggle-button">
-      Toggle sidenav
+    <button style="color: white;" type="button" mat-button (click)="drawer.toggle()" class="toggle-button">
+      Filter
     </button>
-    <app-flight-card *ngFor="let item of getFlights()" [flight]="item"></app-flight-card>
+    <app-flight-card class="flight-card" *ngFor="let item of getFlights()" [flight]="item"></app-flight-card>
   </div>
 </mat-drawer-container>

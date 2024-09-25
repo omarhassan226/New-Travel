@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AirItineraries } from 'src/app/models/models';
+import { FlightTravelsService } from 'src/app/shared/services/flight-travels.service';
 
 @Component({
   selector: 'app-flight-card',
@@ -7,19 +8,11 @@ import { AirItineraries } from 'src/app/models/models';
   styleUrls: ['./flight-card.component.css']
 })
 export class FlightCardComponent implements OnInit {
+
+  constructor(private flightService: FlightTravelsService){}
   @Input() flight: AirItineraries;
 
-  cardData: any = {
-    title: 'Air Line',
-    subtitle: 'dept time',
-    info1: 'arrival time',
-    info2: 'from city',
-    info3: 'to city',
-    info4: 'refund ability',
-    info5: 'isDirect',
-    info6: 'total price',
-    duration: '' // Add duration property
-  };
+  cardData: any = {};
 
   calculateTotalPriceInEGP(flightData: any): number {
     const egpToKwd = 159.63;
@@ -66,7 +59,7 @@ export class FlightCardComponent implements OnInit {
     const hours = Math.floor(durationInMinutes / 60);
     const minutes = durationInMinutes % 60;
 
-    return `${hours}h ${minutes}m`; // Format as "Xh Ym"
+    return `${hours}h ${minutes}m`;
   }
 
   ngOnInit(): void {
@@ -80,7 +73,7 @@ export class FlightCardComponent implements OnInit {
       airName: this.flight.allJourney.flights[0].flightAirline.airlineName,
       departureDate: this.formatDate(departureDate),
       arrivalDate: this.formatDate(arrivalDate),
-      duration: this.calculateDuration(departureDate, arrivalDate), // Calculate and add duration
+      duration: this.calculateDuration(departureDate, arrivalDate),
       departureCountryName: this.flight.allJourney.flights[0].flightDTO[0].departureTerminalAirport.countryName,
       arrivalCountryName: this.flight.allJourney.flights[0].flightDTO[0].arrivalTerminalAirport.countryName,
       refund: isRefundable,
@@ -89,23 +82,7 @@ export class FlightCardComponent implements OnInit {
     };
   }
 
-  private airlineLogos: { [key: string]: string } = {
-    "Nile Air": "../../../../assets/nile-air.svg",
-    "Qatar Airways (Q.C.S.C.)": "../../../../assets/qatar.png",
-    "EgyptAir": "../../../../assets/egyptair.svg",
-    "Royal Jordanian": "../../../../assets/royal-jordanian-airlines-logo.png",
-    "Gulf Air B.S.C. (c)": "../../../../assets/gulf-air.png",
-    "Etihad Airways": "../../../../assets/etihad.png",
-    "Kuwait Airways": "../../../../assets/kuwait.png",
-    "Saudia Arabia Airline": "../../../../assets/saudia-arabia.png",
-    "Oman Air (S.A.O.C.)": "../../../../assets/oman-air-logo.png",
-    "National Air Services / Flynas": "../../../../assets/flynas.png",
-    "Ethiopian Airlines Enterprise": "../../../../assets/ethiopian-airlines.png",
-    "Emirates": "../../../../assets/emirates-airlines-1.svg",
-    "Turkish Airlines Inc.": "../../../../assets/turkish-airlines.png",
-  };
-
-  getAirlineLogo(airline: string): string {
-    return this.airlineLogos[airline] || "../../../../assets/default-airline-logo.svg"; // Fallback logo
+  handleSelectedFlight () {
+    this.flightService.findFlightById(this.flight.sequenceNum)
   }
 }
