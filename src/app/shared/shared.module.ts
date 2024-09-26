@@ -13,13 +13,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 
+/**
+ * SharedModule consolidates commonly used Angular Material modules and
+ * other dependencies that can be shared across different parts of the application.
+ */
 const materials = [
   MatButtonModule,
-  BrowserModule,
   MatSidenavModule,
-  BrowserAnimationsModule,
   MatCardModule,
-  MatButtonModule,
   MatIconModule,
   MatSelectModule,
   MatSliderModule,
@@ -28,16 +29,20 @@ const materials = [
   MatFormFieldModule,
   MatInputModule,
   MatExpansionModule,
-]
+];
+
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ...materials,
-
   ],
   exports: [
     ...materials
   ]
 })
+/**
+ * The SharedModule provides a centralized location for importing and exporting
+ * Angular Material modules, enabling easier management of Material UI components.
+ */
 export class SharedModule { }

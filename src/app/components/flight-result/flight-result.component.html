@@ -8,20 +8,23 @@
   </mat-drawer>
 
   <div class="example-sidenav-content">
-    <button
-      type="button"
-      mat-button
-      (click)="drawer.toggle()"
-      class="toggle-button"
-    >
-      <ng-container
-        class="image-container"
-        *ngIf="drawer.opened; else filterText"
+    <div class="buttons-container">
+      <button
+        type="button"
+        mat-button
+        (click)="drawer.toggle()"
+        class="toggle-button"
       >
-        <img src="../../../assets/arrow.svg" class="image" alt="Arrow" />
-      </ng-container>
-      <ng-template #filterText>{{ "FILTER" | translate }}</ng-template>
-    </button>
+        <ng-container
+          class="image-container"
+          *ngIf="drawer.opened; else filterText"
+        >
+          <img src="../../../assets/arrow.svg" class="image" alt="Arrow" />
+        </ng-container>
+        <ng-template #filterText>{{ "FILTER" | translate }}</ng-template>
+      </button>
+      <app-language-toggle class="child1"></app-language-toggle>
+    </div>
     <app-flight-card
       class="flight-card"
       *ngFor="let item of getFlights()"

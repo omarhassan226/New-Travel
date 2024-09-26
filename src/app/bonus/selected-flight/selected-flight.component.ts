@@ -4,17 +4,28 @@ import { AirItineraries } from 'src/app/models/models';
 import { FlightTravelsService } from 'src/app/shared/services/flight-travels.service';
 import { LanguageService } from './../../shared/services/language.service';
 
+/**
+ * Component for displaying the selected flight details.
+ */
 @Component({
   selector: 'app-selected-flight',
   templateUrl: './selected-flight.component.html',
   styleUrls: ['./selected-flight.component.css'],
 })
-export class SelectedFlightComponent {
-  id: number;
-  flightById: AirItineraries | undefined = undefined;
-  flightDetails: any = {};
-  isArabic: boolean = false
+export class SelectedFlightComponent implements OnInit {
+  id: number; // Flight ID
+  flightById: AirItineraries | undefined; // Selected flight details
+  flightDetails: any = {}; // Flight details object
+  isArabic: boolean = false; // Language flag
+  isModalOpen = false; // Modal state
 
+  /**
+   * Constructor for SelectedFlightComponent.
+   * @param service - Service to manage flight data.
+   * @param route - Activated route for getting route parameters.
+   * @param router - Router for navigation.
+   * @param LanguageService - Service for managing language settings.
+   */
   constructor(
     private service: FlightTravelsService,
     private route: ActivatedRoute,
@@ -22,11 +33,43 @@ export class SelectedFlightComponent {
     private LanguageService: LanguageService
   ) { }
 
+  /**
+   * Lifecycle hook that is called after component initialization.
+   */
+  ngOnInit(): void {
+    // Subscribe to language changes
+    this.LanguageService.currentLang$.subscribe(lang => {
+      this.isArabic = lang === 'ar';
+    });
+
+    // Get the flight ID from the route parameters
+    this.route.params.subscribe((param: { [x: string]: string | number }) => {
+      this.id = +param['id'];
+      this.flightById = this.service.findFlightById(this.id);
+
+      // Populate flight details based on the retrieved flight data
+      if (this.flightById) {
+        this.populateFlightDetails();
+      } else {
+        this.flightById = this.service.getSelectedFlight();
+        if (this.flightById) {
+          this.populateFlightDetails();
+        } else {
+          console.error('No flight data found in localStorage.');
+        }
+      }
+    });
+  }
+
+  /**
+   * Calculates the total price in EGP based on flight data.
+   * @param flightData - Flight data object.
+   * @returns Total price in EGP.
+   */
   calculateTotalPriceInEGP(flightData: any): number {
     const egpToKwd = 159.63;
     const egpToSar = 12.98;
     const egpToUsd = 60;
-
     let totalEGP = 0;
 
     flightData.passengerFareBreakDownDTOs.forEach((passenger: any) => {
@@ -46,6 +89,11 @@ export class SelectedFlightComponent {
     return totalEGP;
   }
 
+  /**
+   * Formats a date string into a readable format.
+   * @param dateString - The date string to format.
+   * @returns Formatted date string.
+   */
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
@@ -59,6 +107,12 @@ export class SelectedFlightComponent {
     return date.toLocaleString('en-US', options);
   }
 
+  /**
+   * Calculates the duration between departure and arrival dates.
+   * @param departureDate - The departure date.
+   * @param arrivalDate - The arrival date.
+   * @returns Duration string in hours and minutes.
+   */
   calculateDuration(departureDate: string, arrivalDate: string): string {
     const departure = new Date(departureDate);
     const arrival = new Date(arrivalDate);
@@ -72,29 +126,9 @@ export class SelectedFlightComponent {
     return `${hours}h ${minutes}m`;
   }
 
-  ngOnInit(): void {
-
-    this.LanguageService.currentLang$.subscribe(lang => {
-      this.isArabic = lang === 'ar';
-    });
-
-    this.route.params.subscribe((param: { [x: string]: string | number }) => {
-      this.id = +param['id'];
-      this.flightById = this.service.findFlightById(this.id);
-
-      if (this.flightById) {
-        this.populateFlightDetails();
-      } else {
-        this.flightById = this.service.getSelectedFlight();
-        if (this.flightById) {
-          this.populateFlightDetails();
-        } else {
-          console.error('No flight data found in localStorage.');
-        }
-      }
-    });
-  }
-
+  /**
+   * Populates flight details based on the selected flight.
+   */
   populateFlightDetails() {
     if (!this.flightById) return;
 
@@ -108,49 +142,43 @@ export class SelectedFlightComponent {
 
     this.flightDetails = {
       airName: this.flightById.allJourney.flights[0].flightAirline?.airlineName,
-      airlineLogo:
-        this.flightById.allJourney.flights[0].flightAirline?.airlineLogo,
+      airlineLogo: this.flightById.allJourney.flights[0].flightAirline?.airlineLogo,
       departureDate: this.formatDate(this.flightById.deptDate),
       arrivalDate: this.formatDate(this.flightById.arrivalDate),
-      duration: this.calculateDuration(
-        this.flightById.deptDate,
-        this.flightById.arrivalDate
-      ),
-      departureCountryName:
-        this.flightById.allJourney.flights[0].flightDTO[0]
-          .departureTerminalAirport?.countryName,
-      arrivalCountryName:
-        this.flightById.allJourney.flights[0].flightDTO[0]
-          .arrivalTerminalAirport?.countryName,
+      duration: this.calculateDuration(this.flightById.deptDate, this.flightById.arrivalDate),
+      departureCountryName: this.flightById.allJourney.flights[0].flightDTO[0].departureTerminalAirport?.countryName,
+      arrivalCountryName: this.flightById.allJourney.flights[0].flightDTO[0].arrivalTerminalAirport?.countryName,
       refund: isRefundable,
       direction: isDirect,
-      totalPrice:
-        this.calculateTotalPriceInEGP(this.flightById).toFixed(0) + ' EGP',
+      totalPrice: this.calculateTotalPriceInEGP(this.flightById).toFixed(0) + ' EGP',
       id: this.flightById.sequenceNum,
       totalDuration: this.flightById.totalDuration,
       cabinClass: this.flightById.cabinClass,
       baggageInfo: this.flightById.baggageInformation[0]?.baggage,
-      flightNumber:
-        this.flightById.allJourney.flights[0].flightDTO[0].flightInfo
-          ?.flightNumber,
-      departureTerminal:
-        this.flightById.allJourney.flights[0].flightDTO[0]
-          .departureTerminalAirport?.airportName,
+      flightNumber: this.flightById.allJourney.flights[0].flightDTO[0].flightInfo?.flightNumber,
+      departureTerminal: this.flightById.allJourney.flights[0].flightDTO[0].departureTerminalAirport?.airportName,
     };
   }
 
+  /**
+   * Opens the booking confirmation modal.
+   */
   openModal(): void {
     this.isModalOpen = true;
   }
 
+  /**
+   * Closes the booking confirmation modal.
+   */
   closeModal(): void {
     this.isModalOpen = false;
   }
 
+  /**
+   * Confirms the booking and navigates to the result page.
+   */
   confirmBooking(): void {
     this.closeModal();
     this.router.navigate(['result']);
   }
-
-  isModalOpen = false;
 }

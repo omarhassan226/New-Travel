@@ -20,7 +20,9 @@ export class FlightTravelsService {
 
   private LOCAL_STORAGE_KEY = 'flightData';
 
-  // Check if data exists in localStorage
+  /**
+   * Retrieves flights from local storage or fetches from API if not available.
+   */
   retrieveFlights() {
     const storedData = localStorage.getItem(this.LOCAL_STORAGE_KEY);
     if (storedData) {
@@ -31,7 +33,6 @@ export class FlightTravelsService {
       return;
     }
 
-    // Fetch from API if no data in localStorage
     this.http.get<{ airItineraries: AirItineraries[], airlines: string[] }>('../../../assets/response.json')
       .pipe(
         catchError(error => {
@@ -40,30 +41,43 @@ export class FlightTravelsService {
         })
       )
       .subscribe((data: { airItineraries: AirItineraries[], airlines: string[] }) => {
-
         this.flights = data.airItineraries;
         this.copyFlights = data.airItineraries;
         this.airlines = data.airlines;
-
         localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(data));
       });
   }
 
+  /**
+   * Filters flights based on refund status.
+   * @param refund - The refund status to filter by.
+   */
   filterRefund(refund: boolean) {
     this.filterByRefund = refund;
     this.filterAll();
   }
 
+  /**
+   * Filters flights based on the number of stops.
+   * @param stops - The number of stops to filter by.
+   */
   filterStops(stops: number) {
     this.filterByStops = stops;
     this.filterAll();
   }
 
+  /**
+   * Filters flights based on the selected airline.
+   * @param airline - The airline name to filter by.
+   */
   filterAirlines(airline: string) {
     this.filterByAirlines = airline;
     this.filterAll();
   }
 
+  /**
+   * Applies all current filters to the flights.
+   */
   filterAll() {
     this.flights = this.copyFlights.filter(flight => {
       if (this.filterByRefund !== null && flight.isRefundable !== this.filterByRefund) {
@@ -79,6 +93,11 @@ export class FlightTravelsService {
     });
   }
 
+  /**
+   * Finds a flight by its ID.
+   * @param id - The ID of the flight to find.
+   * @returns The flight object if found, otherwise undefined.
+   */
   findFlightById(id: number) {
     const flight = this.copyFlights.find((flight) => flight.sequenceNum === id);
     if (flight) {
@@ -88,6 +107,10 @@ export class FlightTravelsService {
     return flight;
   }
 
+  /**
+   * Retrieves the currently selected flight from local storage.
+   * @returns The selected flight object or null if not found.
+   */
   getSelectedFlight() {
     const storedFlight = localStorage.getItem('selectedFlight');
     return storedFlight ? JSON.parse(storedFlight) : null;

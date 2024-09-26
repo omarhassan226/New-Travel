@@ -3,26 +3,35 @@ import { Router } from '@angular/router';
 import { AirItineraries } from 'src/app/models/models';
 import { FlightTravelsService } from 'src/app/shared/services/flight-travels.service';
 
+/**
+ * Component for displaying flight card information.
+ */
 @Component({
   selector: 'app-flight-card',
   templateUrl: './flight-card.component.html',
   styleUrls: ['./flight-card.component.css']
 })
 export class FlightCardComponent implements OnInit {
+  @Input() flight: AirItineraries; // Input flight data
 
-  constructor(private flightService: FlightTravelsService,
-    private router: Router
-  ) { }
-  @Input() flight: AirItineraries;
+  cardData: any = {}; // Data to be displayed on the card
 
-  cardData: any = {};
-  id: number;
+  /**
+   * Constructor for FlightCardComponent.
+   * @param flightService - Service for managing flight data.
+   * @param router - Router for navigation.
+   */
+  constructor(private flightService: FlightTravelsService, private router: Router) { }
 
+  /**
+   * Calculates the total price of the flight in EGP.
+   * @param flightData - Data for the flight.
+   * @returns Total price in EGP.
+   */
   calculateTotalPriceInEGP(flightData: any): number {
     const egpToKwd = 159.63;
     const egpToSar = 12.98;
     const egpToUsd = 60;
-
     let totalEGP = 0;
 
     flightData.passengerFareBreakDownDTOs.forEach((passenger: any) => {
@@ -42,6 +51,11 @@ export class FlightCardComponent implements OnInit {
     return totalEGP;
   }
 
+  /**
+   * Formats a date string into a readable format.
+   * @param dateString - Date string to format.
+   * @returns Formatted date string.
+   */
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
@@ -55,17 +69,24 @@ export class FlightCardComponent implements OnInit {
     return date.toLocaleString('en-US', options);
   }
 
+  /**
+   * Calculates the duration between departure and arrival times.
+   * @param departureDate - Departure date.
+   * @param arrivalDate - Arrival date.
+   * @returns Duration in hours and minutes.
+   */
   calculateDuration(departureDate: string, arrivalDate: string): string {
     const departure = new Date(departureDate);
     const arrival = new Date(arrivalDate);
     const durationInMinutes = Math.round((arrival.getTime() - departure.getTime()) / 60000);
-
     const hours = Math.floor(durationInMinutes / 60);
     const minutes = durationInMinutes % 60;
-
     return `${hours}h ${minutes}m`;
   }
 
+  /**
+   * Lifecycle hook that is called after component initialization.
+   */
   ngOnInit(): void {
     const isDirect: string = this.flight.allJourney.flights[0].flightDTO.length > 1 ? "Transit" : "Direct";
     const isRefundable: string = this.flight.isRefundable ? "Refundable" : "Not Refundable";
@@ -87,9 +108,11 @@ export class FlightCardComponent implements OnInit {
     };
   }
 
+  /**
+   * Navigates to the selected flight details page.
+   */
   handleSelectedFlight() {
-    this.flightService.findFlightById(this.flight.sequenceNum)
-    this.router.navigate(['flight', this.cardData.id])
+    this.flightService.findFlightById(this.flight.sequenceNum);
+    this.router.navigate(['flight', this.cardData.id]);
   }
-
 }

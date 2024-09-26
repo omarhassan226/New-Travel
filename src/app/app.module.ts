@@ -13,6 +13,7 @@ import { SharedModule } from './shared/shared.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LanguageToggleComponent } from './components/language/language.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 // Factory function to create the TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -28,6 +29,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FilterComponent,
     FlightCardComponent,
     LanguageToggleComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

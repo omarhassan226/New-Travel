@@ -2,26 +2,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px;
-  padding: 10px;
-  background-color: #f8f9fa;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s;
   z-index: 5050505;
-  background-color: #1a1c20;
-}
-
-.language-toggle-area:hover {
-  background-color: #1a1c20;
 }
 
 button {
-  font-size: 16px;
-  padding: 10px 20px;
-  border-radius: 4px;
-  transition: transform 0.2s;
-  z-index: 5050505;
+  background: linear-gradient(90deg, #ffdd00, #ff4081, #ffdd00);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 28px;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: glow 1.5s ease-in-out infinite alternate;
+  z-index: 5050500;
 }
 
 button:hover {

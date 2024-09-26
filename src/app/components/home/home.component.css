@@ -25,19 +25,13 @@ body {
 
 .loading-button {
   animation: rotate 0.5s linear infinite, shimmer 1.5s linear infinite;
-  background: linear-gradient(
-    90deg,
-    #ffdd00,
-    #ff4081,
-    #ffdd00
-  ); /* Golden gradient */
+  background: linear-gradient(90deg, #ffdd00, #ff4081, #ffdd00);
   color: white;
   border: none;
   border-radius: 8px;
   padding: 14px 28px;
   font-size: 1.2rem;
   box-shadow: 0 4px 15px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5);
-  /* Golden glow */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 @keyframes shimmer {
@@ -78,14 +72,9 @@ body {
   gap: 30px;
   box-shadow: 0 0 30px 15px rgba(255, 215, 0, 0.7),
     0 0 40px 15px rgba(0, 0, 0, 0.9);
-  padding: 20px; /* Add some padding for better spacing */
-  border-radius: 10px; /* Slight rounding for a softer look */
-  background: rgba(
-    25,
-    25,
-    25,
-    0.8
-  ); /* Semi-transparent background for contrast */
+  padding: 20px;
+  border-radius: 10px;
+  background: rgba(25, 25, 25, 0.8);
 }
 .splash h1 {
   font-size: 3.5rem;
@@ -107,7 +96,7 @@ body {
   font-size: 1.2rem;
   box-shadow: 0 4px 15px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: glow 1.5s ease-in-out infinite alternate; /* Add glowing animation */
+  animation: glow 1.5s ease-in-out infinite alternate;
 }
 @keyframes glow {
   0% {

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { FlightResultComponent } from './components/flight-result/flight-result.component';
 import { SelectedFlightComponent } from './bonus/selected-flight/selected-flight.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -14,7 +15,7 @@ const routes: Routes = [
     path: 'flight/:id',
     component: SelectedFlightComponent
   },
-  { path: '**', redirectTo: 'not-found' }
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
