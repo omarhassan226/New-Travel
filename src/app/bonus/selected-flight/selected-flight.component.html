@@ -1,10 +1,15 @@
 <div class="body" [ngClass]="{ rtl: isArabic, ltr: !isArabic }">
   <div class="container">
+    <!-- Header with Logo -->
     <h1>R<span>o</span>undp<span>i</span>xel</h1>
 
+    <!-- Main Flight Card -->
     <mat-card class="card">
-            <app-language-toggle class="child1"></app-language-toggle>
+      <!-- Language Toggle Component -->
+      <app-language-toggle class="child1"></app-language-toggle>
+
       <mat-card-content>
+        <!-- Card Header with Airline Logo and Name -->
         <div class="card-header">
           <img
             src="{{ flightDetails.airlineLogo }}"
@@ -13,6 +18,8 @@
           />
           <h2 style="margin: 0">{{ flightDetails.airName }}</h2>
         </div>
+
+        <!-- Flight Route Information -->
         <div class="info-group">
           <mat-card class="info-box">{{
             flightDetails.departureCountryName
@@ -31,6 +38,8 @@
             flightDetails.arrivalCountryName
           }}</mat-card>
         </div>
+
+        <!-- Flight Dates and Duration -->
         <div class="info-group">
           <mat-card class="info-box">{{
             flightDetails.departureDate
@@ -44,6 +53,8 @@
           </div>
           <mat-card class="info-box">{{ flightDetails.arrivalDate }}</mat-card>
         </div>
+
+        <!-- Additional Flight Information -->
         <div class="info-container">
           <mat-card class="info-box">
             {{
@@ -81,6 +92,7 @@
         </div>
       </mat-card-content>
 
+      <!-- Modal for Booking Confirmation -->
       <div class="modal" *ngIf="isModalOpen">
         <div class="modal-content">
           <span class="close" (click)="closeModal()">&times;</span>
@@ -109,6 +121,7 @@
         </div>
       </div>
 
+      <!-- Action Buttons -->
       <mat-card-actions class="actions">
         <button mat-raised-button color="primary" [routerLink]="['/result']">
           {{ "BACK_TO_FLIGHTS" | translate }}

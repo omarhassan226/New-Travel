@@ -1,4 +1,10 @@
+<!-- ============================ -->
+<!-- Drawer Container            -->
+<!-- ============================ -->
 <mat-drawer-container class="example-container" autosize>
+  <!-- ============================ -->
+  <!-- Side Navigation Drawer      -->
+  <!-- ============================ -->
   <mat-drawer
     #drawer
     class="example-sidenav"
@@ -7,7 +13,13 @@
     <app-filter></app-filter>
   </mat-drawer>
 
+  <!-- ============================ -->
+  <!-- Main Content Area           -->
+  <!-- ============================ -->
   <div class="example-sidenav-content">
+    <!-- ============================ -->
+    <!-- Button Container            -->
+    <!-- ============================ -->
     <div class="buttons-container">
       <button
         type="button"
@@ -25,6 +37,10 @@
       </button>
       <app-language-toggle class="child1"></app-language-toggle>
     </div>
+
+    <!-- ============================ -->
+    <!-- Flight Cards               -->
+    <!-- ============================ -->
     <app-flight-card
       class="flight-card"
       *ngFor="let item of getFlights()"

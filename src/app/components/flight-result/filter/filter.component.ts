@@ -58,9 +58,11 @@ export class FilterComponent {
     return this.flightTravelsService.airlines;
   }
 
+  /**
+   * Filters the airline list based on the user's search input.
+   */
   handleAirlineChange(e: any) {
     const value = e.target.value
-    console.log(value);
     this.searchArray = this.getAirlines().filter((airline: string) =>
       airline.toLowerCase().includes(this.search.toLowerCase())
     );

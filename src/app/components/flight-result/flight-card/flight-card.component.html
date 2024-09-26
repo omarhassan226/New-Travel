@@ -1,5 +1,8 @@
 <mat-card class="card">
   <mat-card-content>
+    <!-- ============================ -->
+    <!-- Flight Information Section   -->
+    <!-- ============================ -->
     <div class="section-2">
       <mat-card-title class="card-header">
         <img
@@ -9,6 +12,10 @@
         />
         {{ cardData.airName }}
       </mat-card-title>
+
+      <!-- ============================ -->
+      <!-- Departure and Arrival Info   -->
+      <!-- ============================ -->
       <div class="info-group section1">
         <mat-card class="info-box">{{
           cardData.departureCountryName
@@ -25,6 +32,10 @@
         <mat-icon>arrow_forward</mat-icon>
         <mat-card class="info-box">{{ cardData.arrivalCountryName }}</mat-card>
       </div>
+
+      <!-- ============================ -->
+      <!-- Flight Date and Duration Info -->
+      <!-- ============================ -->
       <div class="info-group">
         <mat-card class="info-box">{{ cardData.departureDate }}</mat-card>
         <div class="duration-line-container">
@@ -43,6 +54,9 @@
       </div>
     </div>
 
+    <!-- ============================ -->
+    <!-- Additional Info Section      -->
+    <!-- ============================ -->
     <div class="info-container">
       <mat-card class="info-box">
         {{
@@ -64,6 +78,9 @@
     </div>
   </mat-card-content>
 
+  <!-- ============================ -->
+  <!-- Action Buttons Section       -->
+  <!-- ============================ -->
   <mat-card-actions class="actions">
     <button mat-raised-button color="primary" (click)="handleSelectedFlight()">
       {{ "MORE_DETAILS" | translate }}

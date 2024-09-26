@@ -1,9 +1,15 @@
+/* ============================= */
+/* Global Styles                */
+/* ============================= */
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
   background-color: #1a1c20;
 }
 
+/* ============================= */
+/* Splash Screen Styles         */
+/* ============================= */
 .splash-screen {
   position: fixed;
   top: 0;
@@ -23,6 +29,9 @@ body {
   align-items: center;
 }
 
+/* ============================= */
+/* Loading Button Styles        */
+/* ============================= */
 .loading-button {
   animation: rotate 0.5s linear infinite, shimmer 1.5s linear infinite;
   background: linear-gradient(90deg, #ffdd00, #ff4081, #ffdd00);
@@ -34,6 +43,16 @@ body {
   box-shadow: 0 4px 15px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.loading-button:hover {
+  background-color: #e91e63;
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 64, 129, 0.6);
+}
+
+/* ============================= */
+/* Keyframes                    */
+/* ============================= */
 @keyframes shimmer {
   0% {
     background-position: -200%;
@@ -42,11 +61,7 @@ body {
     background-position: 200%;
   }
 }
-.loading-button:hover {
-  background-color: #e91e63;
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(255, 64, 129, 0.6);
-}
+
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -55,6 +70,10 @@ body {
     transform: rotate(360deg);
   }
 }
+
+/* ============================= */
+/* Background Cover Styles      */
+/* ============================= */
 .background-cover {
   background-size: cover;
   height: 100vh;
@@ -64,6 +83,10 @@ body {
   align-items: center;
   color: #ffffff;
 }
+
+/* ============================= */
+/* Splash Content Styles        */
+/* ============================= */
 .splash {
   display: flex;
   flex-direction: column;
@@ -76,6 +99,7 @@ body {
   border-radius: 10px;
   background: rgba(25, 25, 25, 0.8);
 }
+
 .splash h1 {
   font-size: 3.5rem;
   margin-bottom: 20px;
@@ -83,10 +107,15 @@ body {
   color: #ffffff;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
+
 .splash h1 span {
   color: #ff4081;
   font-size: 1.2em;
 }
+
+/* ============================= */
+/* Button Styles                */
+/* ============================= */
 .splash button {
   background: linear-gradient(90deg, #ffdd00, #ff4081, #ffdd00);
   color: white;
@@ -98,6 +127,15 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   animation: glow 1.5s ease-in-out infinite alternate;
 }
+
+.splash button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 215, 0, 0.8);
+}
+
+/* ============================= */
+/* Glow Animation Keyframes      */
+/* ============================= */
 @keyframes glow {
   0% {
     box-shadow: 0 4px 5px rgba(255, 215, 0, 0.7), 0 0 5px rgba(255, 215, 0, 0.5);
@@ -105,8 +143,4 @@ body {
   100% {
     box-shadow: 0 8px 8px rgba(255, 215, 0, 1), 0 0 10px rgba(255, 215, 0, 0.8);
   }
-}
-.splash button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 30px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 215, 0, 0.8);
 }
