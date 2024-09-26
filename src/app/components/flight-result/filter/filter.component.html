@@ -11,13 +11,26 @@
       <mat-panel-title>{{ "AIRLINES" | translate }}</mat-panel-title>
     </mat-expansion-panel-header>
     <mat-radio-group class="airlines">
-      <mat-radio-button
-        *ngFor="let airline of getAirlines()"
-        [value]="airline"
-        (change)="handleAirlines($event)"
-        class="custom-radio-button"
-        >{{ airline }}</mat-radio-button
-      >
+      <mat-form-field class="example-full-width">
+        <mat-label>Search...</mat-label>
+        <input
+          type="text"
+          [(ngModel)]="search"
+          (input)="handleAirlineChange($event)"
+          matInput
+          placeholder="Search..."
+        />
+      </mat-form-field>
+      <ng-container *ngIf="search">
+        <mat-radio-button
+          *ngFor="let airline of searchArray"
+          [value]="airline"
+          (change)="handleAirlines($event)"
+          class="custom-radio-button"
+        >
+          {{ airline }}
+        </mat-radio-button>
+      </ng-container>
       <mat-radio-button
         [value]="'all'"
         (change)="handleAirlines($event)"

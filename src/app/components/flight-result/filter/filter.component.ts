@@ -13,6 +13,8 @@ import { LanguageService } from './../../../shared/services/language.service';
 export class FilterComponent {
   isArabic: boolean = false; // Language flag
   LanguageService: any;
+  search: any = '';
+  searchArray: any = [];
 
   /**
    * Constructor for FilterComponent.
@@ -54,5 +56,13 @@ export class FilterComponent {
    */
   getAirlines() {
     return this.flightTravelsService.airlines;
+  }
+
+  handleAirlineChange(e: any) {
+    const value = e.target.value
+    console.log(value);
+    this.searchArray = this.getAirlines().filter((airline: string) =>
+      airline.toLowerCase().includes(this.search.toLowerCase())
+    );
   }
 }
