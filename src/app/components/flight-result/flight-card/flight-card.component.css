@@ -64,7 +64,6 @@
   color: white;
   flex: 1 1 calc(30% - 16px);
   max-width: calc(30% - 16px);
-  font-weight: bold;
 }
 
 .info-box:hover {
@@ -103,6 +102,9 @@
   width: 100%;
   background-color: white;
   opacity: 0.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .circle1,
