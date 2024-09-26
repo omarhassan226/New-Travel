@@ -10,9 +10,8 @@ import { LanguageService } from './../../../shared/services/language.service';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css'],
 })
-export class FilterComponent {
-  isArabic: boolean = false; // Language flag
-  LanguageService: any;
+export class FilterComponent implements OnInit {
+  isArabic: boolean | undefined = false; // Language flag
   search: any = '';
   searchArray: any = [];
 
@@ -23,8 +22,15 @@ export class FilterComponent {
    */
   constructor(
     public flightTravelsService: FlightTravelsService,
-    LanguageService: LanguageService
+    public LanguageService: LanguageService
   ) { }
+
+  ngOnInit(): void {
+    // Subscribe to language changes
+    this.LanguageService.currentLang$.subscribe(lang => {
+      this.isArabic = lang === 'ar';
+    });
+  }
 
   /**
    * Handles the change event for refund filter.
@@ -85,4 +91,8 @@ export class FilterComponent {
       event.preventDefault();
     }
   }
+
+  //     this.LanguageService.currentLang$.subscribe((lang: string) => {
+  //   this.isArabic = lang === 'ar';
+  // });
 }

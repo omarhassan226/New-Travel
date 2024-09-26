@@ -13,7 +13,9 @@
   <!-- Airlines Filter            -->
   <!-- ============================ -->
   <h1 class="filter-title">
-    <span>{{ "FILTER_BY" | translate }}:</span>
+    <span [ngClass]="{ right: isArabic, left: !isArabic }"
+      >{{ "FILTER_BY" | translate }}:</span
+    >
     {{ "AIRLINES" | translate }}
   </h1>
   <mat-expansion-panel>
@@ -56,7 +58,10 @@
   <!-- Stops Filter               -->
   <!-- ============================ -->
   <h1 class="filter-title">
-    <span>{{ "FILTER_BY" | translate }}:</span> {{ "STOPS" | translate }}
+    <span [ngClass]="{ right: isArabic, left: !isArabic }"
+      >{{ "FILTER_BY" | translate }}:</span
+    >
+    {{ "STOPS" | translate }}
   </h1>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -91,7 +96,9 @@
   <!-- Refundable Flights Filter   -->
   <!-- ============================ -->
   <h1 class="filter-title">
-    <span>{{ "FILTER_BY" | translate }}:</span>
+    <span [ngClass]="{ right: isArabic, left: !isArabic }"
+      >{{ "FILTER_BY" | translate }}:</span
+    >
     {{ "REFUNDABLE_FLIGHTS" | translate }}
   </h1>
   <mat-expansion-panel>

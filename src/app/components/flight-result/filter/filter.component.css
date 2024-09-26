@@ -157,6 +157,13 @@ button.mat-raised-button:hover {
   font-size: 1.5rem;
   font-weight: bold;
   color: white;
+}
+
+.right {
+  margin-right: 1rem;
+}
+
+.left {
   margin-left: 1rem;
 }
 

@@ -26,7 +26,6 @@ export class LanguageService {
    * @param translate - The TranslateService instance used for translation functionalities.
    */
   constructor(private translate: TranslateService) {
-    // Set the default language to English
     this.translate.setDefaultLang('en');
   }
 
