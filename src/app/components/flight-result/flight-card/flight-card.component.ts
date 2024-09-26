@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AirItineraries } from 'src/app/models/models';
 import { FlightTravelsService } from 'src/app/shared/services/flight-travels.service';
 
@@ -9,10 +10,13 @@ import { FlightTravelsService } from 'src/app/shared/services/flight-travels.ser
 })
 export class FlightCardComponent implements OnInit {
 
-  constructor(private flightService: FlightTravelsService){}
+  constructor(private flightService: FlightTravelsService,
+    private router: Router
+  ) { }
   @Input() flight: AirItineraries;
 
   cardData: any = {};
+  id: number;
 
   calculateTotalPriceInEGP(flightData: any): number {
     const egpToKwd = 159.63;
@@ -78,11 +82,14 @@ export class FlightCardComponent implements OnInit {
       arrivalCountryName: this.flight.allJourney.flights[0].flightDTO[0].arrivalTerminalAirport.countryName,
       refund: isRefundable,
       direction: isDirect,
-      totalPrice: this.calculateTotalPriceInEGP(this.flight).toFixed(0) + " EGP"
+      totalPrice: this.calculateTotalPriceInEGP(this.flight).toFixed(0) + " EGP",
+      id: this.flight.sequenceNum
     };
   }
 
-  handleSelectedFlight () {
+  handleSelectedFlight() {
     this.flightService.findFlightById(this.flight.sequenceNum)
+    this.router.navigate(['flight', this.cardData.id])
   }
+
 }

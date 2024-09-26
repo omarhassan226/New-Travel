@@ -1,15 +1,21 @@
-<div >
+<div>
   <div class="splash-screen splash">
-    <h1>R<span>o</span>undp<span>i</span>xel</h1>
-    <button routerLink="/result" mat-flat-button color="accent">Book Your Flight Travel</button>
+    <h1>{{ "APP_NAME" | translate }}</h1>
+    <button routerLink="/result" mat-flat-button color="accent">
+      {{ "BOOK_FLIGHT" | translate }}
+    </button>
   </div>
 </div>
 
 <div class="splash-screen" *ngIf="loading">
   <div class="loading-container">
-    <button routerLink="/result" mat-flat-button color="accent" class="loading-button">
-      Get Your Flight Travel
+    <button
+      routerLink="/result"
+      mat-flat-button
+      color="accent"
+      class="loading-button"
+    >
+      {{ "GET_FLIGHT" | translate }}
     </button>
   </div>
 </div>
-

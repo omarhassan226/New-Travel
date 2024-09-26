@@ -4,8 +4,8 @@ export interface AirItineraries {
   isRefundable: boolean;
   itinTotalFare: TotalFare;
   totalDuration: number;
-  deptDate: string; // ISO date string
-  arrivalDate: string; // ISO date string
+  deptDate: string;
+  arrivalDate: string;
   cabinClass: string;
   flightType: string;
   allJourney: Journey;
@@ -37,16 +37,16 @@ export interface FlightDetail {
   departureOffset: number;
   arrivalOffset: number;
   isStopSegment: boolean;
-  deptTime: string; // Time in HH:mm:ss format
-  landTime: string; // Time in HH:mm:ss format
-  departureDate: string; // ISO date string
-  arrivalDate: string; // ISO date string
+  deptTime: string;
+  landTime: string;
+  departureDate: string;
+  arrivalDate: string;
   flightAirline: Airline;
   operatedAirline: Airline;
   durationPerLeg: number;
   departureTerminalAirport: Airport;
   arrivalTerminalAirport: Airport;
-  transitTime: string; // Time in HH:mm:ss format
+  transitTime: string;
   flightInfo: FlightInfo;
   segmentDetails: SegmentDetails;
   supplierRefID: string | null;
@@ -109,7 +109,7 @@ export interface PassengerFareBreakdown {
 
 export interface Penalty {
   price: number;
-  curency: string; // Typo in the original, should be "currency"
+  curency: string;
   percentage: number;
 }
 

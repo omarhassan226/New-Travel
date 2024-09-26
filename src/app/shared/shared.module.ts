@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
@@ -12,6 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 
 const materials = [
   MatButtonModule,
@@ -27,14 +27,17 @@ const materials = [
   MatRadioModule,
   MatFormFieldModule,
   MatInputModule,
-  MatExpansionModule
+  MatExpansionModule,
 ]
 @NgModule({
   imports: [
-    materials
+    BrowserModule,
+    BrowserAnimationsModule,
+    ...materials,
+
   ],
   exports: [
-    materials
+    ...materials
   ]
 })
 export class SharedModule { }

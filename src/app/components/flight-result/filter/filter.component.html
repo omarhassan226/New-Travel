@@ -1,59 +1,95 @@
 <h1 class="header-title">
   R<span class="gold-effect">o</span>undp<span class="gold-effect">i</span>xel
 </h1>
-
-<mat-accordion>
-  <h1 class="filter-title"><span>Filter by:</span> Airlines</h1>
+<div class="body" [ngClass]="{ rtl: isArabic, ltr: !isArabic }">
+  <h1 class="filter-title">
+    <span>{{ "FILTER_BY" | translate }}:</span>
+    {{ "AIRLINES" | translate }}
+  </h1>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>Airlines</mat-panel-title>
+      <mat-panel-title>{{ "AIRLINES" | translate }}</mat-panel-title>
     </mat-expansion-panel-header>
     <mat-radio-group class="airlines">
       <mat-radio-button
         *ngFor="let airline of getAirlines()"
         [value]="airline"
         (change)="handleAirlines($event)"
+        class="custom-radio-button"
         >{{ airline }}</mat-radio-button
       >
-      <mat-radio-button [value]="'all'" (change)="handleAirlines($event)"
-        >All</mat-radio-button
+      <mat-radio-button
+        [value]="'all'"
+        (change)="handleAirlines($event)"
+        class="custom-radio-button"
       >
+        {{ "ALL" | translate }}
+      </mat-radio-button>
     </mat-radio-group>
   </mat-expansion-panel>
 
-  <h1 class="filter-title"><span>Filter by:</span> Stops</h1>
+  <h1 class="filter-title">
+    <span>{{ "FILTER_BY" | translate }}:</span> {{ "STOPS" | translate }}
+  </h1>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>Stops</mat-panel-title>
+      <mat-panel-title>{{ "STOPS" | translate }}</mat-panel-title>
     </mat-expansion-panel-header>
     <mat-radio-group>
-      <mat-radio-button [value]="1" (change)="handleStopsChange($event)"
-        >Direct</mat-radio-button
+      <mat-radio-button
+        class="stop1"
+        [value]="1"
+        (change)="handleStopsChange($event)"
       >
-      <mat-radio-button [value]="2" (change)="handleStopsChange($event)"
-        >1 Stop</mat-radio-button
+        {{ "DIRECT" | translate }}
+      </mat-radio-button>
+      <mat-radio-button
+        class="stop1"
+        [value]="2"
+        (change)="handleStopsChange($event)"
       >
-      <mat-radio-button [value]="-1" (change)="handleStopsChange($event)"
-        >Any</mat-radio-button
+        {{ "ONE_STOP" | translate }}
+      </mat-radio-button>
+      <mat-radio-button
+        class="stop1"
+        [value]="-1"
+        (change)="handleStopsChange($event)"
       >
+        {{ "ANY" | translate }}
+      </mat-radio-button>
     </mat-radio-group>
   </mat-expansion-panel>
 
-  <h1 class="filter-title"><span>Filter by:</span> Refundable</h1>
+  <h1 class="filter-title">
+    <span>{{ "FILTER_BY" | translate }}:</span>
+    {{ "REFUNDABLE_FLIGHTS" | translate }}
+  </h1>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>Refundable</mat-panel-title>
+      <mat-panel-title>{{ "REFUNDABLE_FLIGHTS" | translate }}</mat-panel-title>
     </mat-expansion-panel-header>
     <mat-radio-group>
-      <mat-radio-button [value]="true" (change)="handleRefundChange($event)"
-        >Refundable Flights</mat-radio-button
+      <mat-radio-button
+        class="refund"
+        [value]="true"
+        (change)="handleRefundChange($event)"
       >
-      <mat-radio-button [value]="false" (change)="handleRefundChange($event)"
-        >UnRefundable Flights</mat-radio-button
+        {{ "REFUNDABLE_FLIGHTS" | translate }}
+      </mat-radio-button>
+      <mat-radio-button
+        class="refund"
+        [value]="false"
+        (change)="handleRefundChange($event)"
       >
-      <mat-radio-button [value]="null" (change)="handleRefundChange($event)"
-        >Any</mat-radio-button
+        {{ "NON_REFUNDABLE_FLIGHTS" | translate }}
+      </mat-radio-button>
+      <mat-radio-button
+        class="refund"
+        [value]="null"
+        (change)="handleRefundChange($event)"
       >
+        {{ "ANY" | translate }}
+      </mat-radio-button>
     </mat-radio-group>
   </mat-expansion-panel>
-</mat-accordion>
+</div>

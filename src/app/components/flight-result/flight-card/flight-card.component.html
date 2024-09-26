@@ -1,23 +1,30 @@
 <mat-card class="card">
   <mat-card-content>
     <div class="section-2">
-        <mat-card-title class="card-header">
+      <mat-card-title class="card-header">
+        <img
+          [src]="flight.allJourney.flights[0].flightAirline.airlineLogo"
+          alt="{{ cardData.airName }} logo"
+          class="airline-logo"
+        />
+        {{ cardData.airName }}
+      </mat-card-title>
+      <div class="info-group section1">
+        <mat-card class="info-box">{{
+          cardData.departureCountryName
+        }}</mat-card>
+        <mat-icon>arrow_forward</mat-icon>
+        <div class="plane-container">
           <img
-            [src]="flight.allJourney.flights[0].flightAirline.airlineLogo"
-            alt="{{ cardData.airName }} logo"
-            class="airline-logo"
+            src="../../../../assets/plan1.png"
+            width="40px"
+            alt="Flight path"
+            class="plane"
           />
-          {{ cardData.airName }}
-        </mat-card-title>
-        <div class="info-group section1">
-          <mat-card class="info-box">{{ cardData.departureCountryName }}</mat-card>
-          <mat-icon>arrow_forward</mat-icon>
-          <div class="plane-container">
-            <img src="../../../../assets/plan1.png" width="40px" alt="Flight path" class="plane" />
-          </div>
-          <mat-icon>arrow_forward</mat-icon>
-          <mat-card class="info-box">{{ cardData.arrivalCountryName }}</mat-card>
         </div>
+        <mat-icon>arrow_forward</mat-icon>
+        <mat-card class="info-box">{{ cardData.arrivalCountryName }}</mat-card>
+      </div>
       <div class="info-group">
         <mat-card class="info-box">{{ cardData.departureDate }}</mat-card>
         <div class="duration-line-container">
@@ -37,16 +44,32 @@
     </div>
 
     <div class="info-container">
-      <mat-card class="info-box">{{ cardData.refund }}</mat-card>
-      <mat-card class="info-box" style="text-align: center">{{
-        cardData.totalPrice
-      }}</mat-card>
-      <mat-card class="info-box">{{ cardData.direction }}</mat-card>
+      <mat-card class="info-box">
+        {{
+          cardData.refund
+            ? ("REFUNDABLE" | translate)
+            : ("NON_REFUNDABLE" | translate)
+        }}
+      </mat-card>
+      <mat-card class="info-box" style="text-align: center">
+        {{ cardData.totalPrice }}
+      </mat-card>
+      <mat-card class="info-box">
+        {{
+          cardData.direction
+            ? ("DIRECT_FLIGHT" | translate)
+            : ("CONNECTING_FLIGHT" | translate)
+        }}
+      </mat-card>
     </div>
   </mat-card-content>
 
   <mat-card-actions class="actions">
-    <button mat-raised-button color="primary" (click)="handleSelectedFlight()">More Details</button>
-    <button mat-raised-button color="accent">Book Now</button>
+    <button mat-raised-button color="primary" (click)="handleSelectedFlight()">
+      {{ "MORE_DETAILS" | translate }}
+    </button>
+    <button mat-raised-button color="accent">
+      {{ "BOOK_NOW" | translate }}
+    </button>
   </mat-card-actions>
 </mat-card>

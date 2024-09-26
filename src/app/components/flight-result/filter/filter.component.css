@@ -62,7 +62,7 @@
 }
 
 .mat-slider-thumb {
-  background-color: #ff4081;
+  background-color: #ffd700;
 }
 
 .mat-slider-track-fill {
@@ -73,12 +73,30 @@ mat-checkbox,
 mat-radio-group {
   margin: 10px 0;
   font-size: 16px;
-  color: #e0e0e0;
+  color: white;
+}
+
+.custom-radio-button {
+  background-color: white;
+  color: white;
+  border-radius: 8px;
+  margin: 5px;
+}
+
+.stop1,
+.refund {
+  background-color: white;
+  color: white;
+  border-radius: 8px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
 }
 
 mat-checkbox:hover,
 mat-radio-button:hover {
-  background-color: rgba(255, 64, 129, 0.1);
+  background-color: rgb(253, 184, 207);
 }
 
 button.mat-raised-button {
@@ -110,7 +128,7 @@ button.mat-raised-button:hover {
   color: #ffd700;
 }
 
-.filter-title span{
+.filter-title span {
   text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
@@ -123,12 +141,12 @@ button.mat-raised-button:hover {
   color: white;
 }
 
-.airlines{
+.airlines {
   display: flex;
   flex-direction: column;
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
   .mat-expansion-panel {
     background-color: #3b3b3b;
     margin: 20px 15px;
@@ -139,7 +157,7 @@ button.mat-raised-button:hover {
   }
 }
 
-@media (max-width: 480px){
+@media (max-width: 480px) {
   .mat-expansion-panel {
     background-color: #3b3b3b;
     margin: 20px 15px;
@@ -148,4 +166,14 @@ button.mat-raised-button:hover {
     transition: transform 0.3s ease;
     width: 300px;
   }
+}
+
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.ltr {
+  direction: ltr;
+  text-align: left;
 }
