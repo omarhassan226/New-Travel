@@ -27,6 +27,7 @@
           type="text"
           [(ngModel)]="search"
           (input)="handleAirlineChange($event)"
+          (keypress)="preventArabic($event)"
           matInput
           placeholder="Search..."
         />

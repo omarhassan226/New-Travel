@@ -8,7 +8,7 @@ import { LanguageService } from './../../../shared/services/language.service';
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.css']
+  styleUrls: ['./filter.component.css'],
 })
 export class FilterComponent {
   isArabic: boolean = false; // Language flag
@@ -21,7 +21,10 @@ export class FilterComponent {
    * @param flightTravelsService - Service for managing flight data.
    * @param LanguageService - Service for managing language settings.
    */
-  constructor(public flightTravelsService: FlightTravelsService, LanguageService: LanguageService) { }
+  constructor(
+    public flightTravelsService: FlightTravelsService,
+    LanguageService: LanguageService
+  ) { }
 
   /**
    * Handles the change event for refund filter.
@@ -62,9 +65,24 @@ export class FilterComponent {
    * Filters the airline list based on the user's search input.
    */
   handleAirlineChange(e: any) {
-    const value = e.target.value
+    const value = e.target.value;
     this.searchArray = this.getAirlines().filter((airline: string) =>
       airline.toLowerCase().includes(this.search.toLowerCase())
     );
+  }
+
+  /**
+   * Arabic character code regex.
+   */
+  arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/;
+
+  /**
+   * Prevent arabic characters by checking on the character code.
+   */
+  preventArabic(event: KeyboardEvent) {
+    const inputChar = String.fromCharCode(event.keyCode || event.which);
+    if (this.arabicRegex.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 }
