@@ -1,0 +1,91 @@
+/* ============================ */
+/* Container and Body Styles    */
+/* ============================ */
+.example-container {
+  height: 100vh;
+  background-color: #1a1c20;
+}
+
+.example-sidenav {
+  background-color: #282c34;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  transition: width 0.3s ease;
+}
+
+/* ============================ */
+/* Button Styles                */
+/* ============================ */
+.example-sidenav-content button {
+  background: linear-gradient(90deg, #ffdd00, #ff4081, #ffdd00);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 28px;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+/* ============================ */
+/* Glow Animation               */
+/* ============================ */
+@keyframes glow {
+  0% {
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.7),
+      0 0 20px rgba(255, 215, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.8);
+  }
+}
+
+/* ============================ */
+/* Button Hover Effects         */
+/* ============================ */
+.example-sidenav-content button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 215, 0, 0.8);
+}
+
+/* ============================ */
+/* Sidenav Content Styles       */
+/* ============================ */
+.example-sidenav-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ============================ */
+/* Flight Card Styles           */
+/* ============================ */
+.app-flight-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.flight-card {
+  width: 100%;
+}
+
+.app-flight-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+}
+
+/* ============================ */
+/* Image and Button Container    */
+/* ============================ */
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+}

@@ -1,0 +1,129 @@
+<mat-card class="card">
+  <mat-card-content>
+    <!-- ============================ -->
+    <!-- Flight Information Section   -->
+    <!-- ============================ -->
+    <div class="section-2">
+      <mat-card-title class="card-header">
+        <img
+          [src]="flight.allJourney.flights[0].flightAirline.airlineLogo"
+          alt="{{ cardData.airName }} logo"
+          class="airline-logo"
+        />
+        {{ cardData.airName }}
+      </mat-card-title>
+
+      <!-- ============================ -->
+      <!-- Departure and Arrival Info   -->
+      <!-- ============================ -->
+      <div class="info-group section1">
+        <mat-card class="info-box">{{
+          cardData.departureCountryName
+        }}</mat-card>
+        <mat-icon>arrow_forward</mat-icon>
+        <div class="plane-container">
+          <img
+            src="../../../../assets/plan1.png"
+            width="40px"
+            alt="Flight path"
+            class="plane"
+          />
+        </div>
+        <mat-icon>arrow_forward</mat-icon>
+        <mat-card class="info-box">{{ cardData.arrivalCountryName }}</mat-card>
+      </div>
+
+      <!-- ============================ -->
+      <!-- Flight Date and Duration Info -->
+      <!-- ============================ -->
+      <div class="info-group">
+        <mat-card class="info-box">{{ cardData.departureDate }}</mat-card>
+        <div class="duration-line-container">
+          <div class="line-group">
+            <span class="circle1"></span>
+            <span class="line">
+              <span class="small-airPlane-container">
+                <mat-icon class="small-airPlane">airplanemode_active</mat-icon>
+              </span>
+            </span>
+            <span class="circle2"></span>
+          </div>
+          <span>{{ cardData.duration }}</span>
+        </div>
+        <mat-card class="info-box">{{ cardData.arrivalDate }}</mat-card>
+      </div>
+    </div>
+
+    <!-- ============================ -->
+    <!-- Additional Info Section      -->
+    <!-- ============================ -->
+    <div class="info-container">
+      <mat-card class="info-box">
+        {{
+          cardData.refund
+            ? ("REFUNDABLE" | translate)
+            : ("NON_REFUNDABLE" | translate)
+        }}
+      </mat-card>
+      <mat-card class="info-box" style="text-align: center">
+        {{ cardData.totalPrice }}
+      </mat-card>
+      <mat-card class="info-box">
+        {{
+          cardData.direction
+            ? ("DIRECT_FLIGHT" | translate)
+            : ("CONNECTING_FLIGHT" | translate)
+        }}
+      </mat-card>
+    </div>
+  </mat-card-content>
+
+  <!-- Modal for Booking Confirmation -->
+  <div class="modal" *ngIf="isModalOpen">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>{{ "BOOK_YOUR_FLIGHT" | translate }}</h2>
+      <div class="flight-details">
+        <p>
+          <strong>{{ "FLIGHT_NUMBER" | translate }}</strong>
+          {{
+            flight.allJourney.flights[0].flightDTO[0].flightInfo.flightNumber
+          }}
+        </p>
+        <p>
+          <strong>{{ "DEPARTURE" | translate }}</strong>
+          {{
+            flight.allJourney.flights[0].flightDTO[0].departureTerminalAirport
+              .countryName
+          }}
+        </p>
+        <p>
+          <strong>{{ "ARRIVAL" | translate }}</strong>
+          {{
+            flight.allJourney.flights[0].flightDTO[0].arrivalTerminalAirport
+              .countryName
+          }}
+        </p>
+        <p>
+          <strong>{{ "PRICE" | translate }}</strong>
+          {{ cardData.totalPrice }}
+        </p>
+      </div>
+      <button class="confirm-button" (click)="confirmBooking()">
+        {{ "CONFIRM_BOOKING" | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================ -->
+  <!-- Action Buttons Section       -->
+  <!-- ============================ -->
+  <mat-card-actions class="actions">
+    <button mat-raised-button color="primary" (click)="handleSelectedFlight()">
+      {{ "MORE_DETAILS" | translate }}
+    </button>
+    <button mat-raised-button color="accent" (click)="openModal()">
+      {{ "BOOK_NOW" | translate }}
+    </button>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,50 @@
+<!-- ============================ -->
+<!-- Drawer Container            -->
+<!-- ============================ -->
+<mat-drawer-container class="example-container" autosize>
+  <!-- ============================ -->
+  <!-- Side Navigation Drawer      -->
+  <!-- ============================ -->
+  <mat-drawer
+    #drawer
+    class="example-sidenav"
+    [mode]="isSmallScreen ? 'over' : 'side'"
+  >
+    <app-filter></app-filter>
+  </mat-drawer>
+
+  <!-- ============================ -->
+  <!-- Main Content Area           -->
+  <!-- ============================ -->
+  <div class="example-sidenav-content">
+    <!-- ============================ -->
+    <!-- Button Container            -->
+    <!-- ============================ -->
+    <div class="buttons-container">
+      <button
+        type="button"
+        mat-button
+        (click)="drawer.toggle()"
+        class="toggle-button"
+      >
+        <ng-container
+          class="image-container"
+          *ngIf="drawer.opened; else filterText"
+        >
+          <img src="../../../assets/arrow.svg" class="image" alt="Arrow" />
+        </ng-container>
+        <ng-template #filterText>{{ "FILTER" | translate }}</ng-template>
+      </button>
+      <app-language-toggle class="child1"></app-language-toggle>
+    </div>
+
+    <!-- ============================ -->
+    <!-- Flight Cards               -->
+    <!-- ============================ -->
+    <app-flight-card
+      class="flight-card"
+      *ngFor="let item of getFlights()"
+      [flight]="item"
+    ></app-flight-card>
+  </div>
+</mat-drawer-container>
