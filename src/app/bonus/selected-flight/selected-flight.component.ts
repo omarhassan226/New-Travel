@@ -17,7 +17,6 @@ export class SelectedFlightComponent implements OnInit {
   flightById: AirItineraries | undefined; // Selected flight details
   flightDetails: any = {}; // Flight details object
   isArabic: boolean = false; // Language flag
-  isModalOpen = false; // Modal state
 
   /**
    * Constructor for SelectedFlightComponent.
@@ -29,16 +28,26 @@ export class SelectedFlightComponent implements OnInit {
   constructor(
     private service: FlightTravelsService,
     private route: ActivatedRoute,
-    private router: Router,
     private LanguageService: LanguageService
   ) { }
+
+  /**
+   * Property and functions to manage flight confirmation model.
+   */
+  isModalOpen = this.service.isModalOpen;
+
+  openModal = this.service.openModal;
+
+  closeModal = this.service.closeModal;
+
+  confirmBooking = this.service.confirmBooking;
 
   /**
    * Lifecycle hook that is called after component initialization.
    */
   ngOnInit(): void {
     // Subscribe to language changes
-    this.LanguageService.currentLang$.subscribe(lang => {
+    this.LanguageService.currentLang$.subscribe((lang) => {
       this.isArabic = lang === 'ar';
     });
 
@@ -142,43 +151,34 @@ export class SelectedFlightComponent implements OnInit {
 
     this.flightDetails = {
       airName: this.flightById.allJourney.flights[0].flightAirline?.airlineName,
-      airlineLogo: this.flightById.allJourney.flights[0].flightAirline?.airlineLogo,
+      airlineLogo:
+        this.flightById.allJourney.flights[0].flightAirline?.airlineLogo,
       departureDate: this.formatDate(this.flightById.deptDate),
       arrivalDate: this.formatDate(this.flightById.arrivalDate),
-      duration: this.calculateDuration(this.flightById.deptDate, this.flightById.arrivalDate),
-      departureCountryName: this.flightById.allJourney.flights[0].flightDTO[0].departureTerminalAirport?.countryName,
-      arrivalCountryName: this.flightById.allJourney.flights[0].flightDTO[0].arrivalTerminalAirport?.countryName,
+      duration: this.calculateDuration(
+        this.flightById.deptDate,
+        this.flightById.arrivalDate
+      ),
+      departureCountryName:
+        this.flightById.allJourney.flights[0].flightDTO[0]
+          .departureTerminalAirport?.countryName,
+      arrivalCountryName:
+        this.flightById.allJourney.flights[0].flightDTO[0]
+          .arrivalTerminalAirport?.countryName,
       refund: isRefundable,
       direction: isDirect,
-      totalPrice: this.calculateTotalPriceInEGP(this.flightById).toFixed(0) + ' EGP',
+      totalPrice:
+        this.calculateTotalPriceInEGP(this.flightById).toFixed(0) + ' EGP',
       id: this.flightById.sequenceNum,
       totalDuration: this.flightById.totalDuration,
       cabinClass: this.flightById.cabinClass,
       baggageInfo: this.flightById.baggageInformation[0]?.baggage,
-      flightNumber: this.flightById.allJourney.flights[0].flightDTO[0].flightInfo?.flightNumber,
-      departureTerminal: this.flightById.allJourney.flights[0].flightDTO[0].departureTerminalAirport?.airportName,
+      flightNumber:
+        this.flightById.allJourney.flights[0].flightDTO[0].flightInfo
+          ?.flightNumber,
+      departureTerminal:
+        this.flightById.allJourney.flights[0].flightDTO[0]
+          .departureTerminalAirport?.airportName,
     };
-  }
-
-  /**
-   * Opens the booking confirmation modal.
-   */
-  openModal(): void {
-    this.isModalOpen = true;
-  }
-
-  /**
-   * Closes the booking confirmation modal.
-   */
-  closeModal(): void {
-    this.isModalOpen = false;
-  }
-
-  /**
-   * Confirms the booking and navigates to the result page.
-   */
-  confirmBooking(): void {
-    this.closeModal();
-    this.router.navigate(['result']);
   }
 }

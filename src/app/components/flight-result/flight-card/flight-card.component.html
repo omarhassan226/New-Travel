@@ -78,6 +78,43 @@
     </div>
   </mat-card-content>
 
+  <!-- Modal for Booking Confirmation -->
+  <div class="modal" *ngIf="isModalOpen">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>{{ "BOOK_YOUR_FLIGHT" | translate }}</h2>
+      <div class="flight-details">
+        <p>
+          <strong>{{ "FLIGHT_NUMBER" | translate }}</strong>
+          {{
+            flight.allJourney.flights[0].flightDTO[0].flightInfo.flightNumber
+          }}
+        </p>
+        <p>
+          <strong>{{ "DEPARTURE" | translate }}</strong>
+          {{
+            flight.allJourney.flights[0].flightDTO[0].departureTerminalAirport
+              .countryName
+          }}
+        </p>
+        <p>
+          <strong>{{ "ARRIVAL" | translate }}</strong>
+          {{
+            flight.allJourney.flights[0].flightDTO[0].arrivalTerminalAirport
+              .countryName
+          }}
+        </p>
+        <p>
+          <strong>{{ "PRICE" | translate }}</strong>
+          {{ cardData.totalPrice }}
+        </p>
+      </div>
+      <button class="confirm-button" (click)="confirmBooking()">
+        {{ "CONFIRM_BOOKING" | translate }}
+      </button>
+    </div>
+  </div>
+
   <!-- ============================ -->
   <!-- Action Buttons Section       -->
   <!-- ============================ -->
@@ -85,7 +122,7 @@
     <button mat-raised-button color="primary" (click)="handleSelectedFlight()">
       {{ "MORE_DETAILS" | translate }}
     </button>
-    <button mat-raised-button color="accent">
+    <button mat-raised-button color="accent" (click)="openModal()">
       {{ "BOOK_NOW" | translate }}
     </button>
   </mat-card-actions>

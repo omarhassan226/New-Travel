@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { AirItineraries } from '../../models/models';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FlightTravelsService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   flights: AirItineraries[] = [];
   airlines: any = [];
@@ -17,6 +18,7 @@ export class FlightTravelsService {
   filterByRefund: null | boolean = null;
   filterByStops: number = -1;
   filterByAirlines: string = 'all';
+  isModalOpen = false;
 
   private LOCAL_STORAGE_KEY = 'flightData';
 
@@ -33,19 +35,24 @@ export class FlightTravelsService {
       return;
     }
 
-    this.http.get<{ airItineraries: AirItineraries[], airlines: string[] }>('../../../assets/response.json')
+    this.http
+      .get<{ airItineraries: AirItineraries[]; airlines: string[] }>(
+        '../../../assets/response.json'
+      )
       .pipe(
-        catchError(error => {
+        catchError((error) => {
           console.error('Error fetching flight data:', error);
           return of({ airItineraries: [], airlines: [] });
         })
       )
-      .subscribe((data: { airItineraries: AirItineraries[], airlines: string[] }) => {
-        this.flights = data.airItineraries;
-        this.copyFlights = data.airItineraries;
-        this.airlines = data.airlines;
-        localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(data));
-      });
+      .subscribe(
+        (data: { airItineraries: AirItineraries[]; airlines: string[] }) => {
+          this.flights = data.airItineraries;
+          this.copyFlights = data.airItineraries;
+          this.airlines = data.airlines;
+          localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(data));
+        }
+      );
   }
 
   /**
@@ -79,14 +86,24 @@ export class FlightTravelsService {
    * Applies all current filters to the flights.
    */
   filterAll() {
-    this.flights = this.copyFlights.filter(flight => {
-      if (this.filterByRefund !== null && flight.isRefundable !== this.filterByRefund) {
+    this.flights = this.copyFlights.filter((flight) => {
+      if (
+        this.filterByRefund !== null &&
+        flight.isRefundable !== this.filterByRefund
+      ) {
         return false;
       }
-      if (this.filterByStops !== -1 && flight.allJourney.flights[0].flightDTO.length !== this.filterByStops) {
+      if (
+        this.filterByStops !== -1 &&
+        flight.allJourney.flights[0].flightDTO.length !== this.filterByStops
+      ) {
         return false;
       }
-      if (this.filterByAirlines !== 'all' && flight.allJourney.flights[0].flightAirline.airlineName !== this.filterByAirlines) {
+      if (
+        this.filterByAirlines !== 'all' &&
+        flight.allJourney.flights[0].flightAirline.airlineName !==
+        this.filterByAirlines
+      ) {
         return false;
       }
       return true;
@@ -114,5 +131,27 @@ export class FlightTravelsService {
   getSelectedFlight() {
     const storedFlight = localStorage.getItem('selectedFlight');
     return storedFlight ? JSON.parse(storedFlight) : null;
+  }
+
+  /**
+   * Opens the booking confirmation modal.
+   */
+  openModal(): void {
+    this.isModalOpen = true;
+  }
+
+  /**
+   * Closes the booking confirmation modal.
+   */
+  closeModal(): void {
+    this.isModalOpen = false;
+  }
+
+  /**
+   * Confirms the booking and navigates to the result page.
+   */
+  confirmBooking(): void {
+    this.closeModal();
+    this.router.navigate(['result']);
   }
 }

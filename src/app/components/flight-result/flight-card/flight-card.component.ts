@@ -115,4 +115,15 @@ export class FlightCardComponent implements OnInit {
     this.flightService.findFlightById(this.flight.sequenceNum);
     this.router.navigate(['flight', this.cardData.id]);
   }
+
+  /**
+* Property and functions to manage flight confirmation model.
+*/
+  isModalOpen = this.flightService.isModalOpen
+
+  openModal = this.flightService.openModal
+
+  closeModal = this.flightService.closeModal
+
+  confirmBooking = this.flightService.confirmBooking
 }
