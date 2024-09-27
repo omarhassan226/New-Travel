@@ -19,6 +19,8 @@
 
 .glowing-text {
   font-size: 36px;
+  line-height: 45px;
+  text-align: center;
   color: gold;
   text-shadow: 0 0 5px gold, 0 0 10px gold, 0 0 15px rgba(255, 215, 0, 0.7),
     0 0 20px rgba(255, 215, 0, 0.5);
