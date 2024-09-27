@@ -9,7 +9,7 @@
   "REFUNDABLE": "Refundable",
   "NON_REFUNDABLE": "Non-Refundable",
   "DIRECT_FLIGHT": "Direct Flight",
-  "CONNECTING_FLIGHT": "Connecting Flight",
+  "CONNECTING_FLIGHT": "Transit",
   "CABIN_CLASS": "Cabin Class:",
   "DEPARTURE_TERMINAL": "Departure Terminal:",
   "BAGGAGE_ALLOWANCE": "Baggage Allowance:",

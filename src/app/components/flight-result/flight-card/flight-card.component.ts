@@ -88,8 +88,8 @@ export class FlightCardComponent implements OnInit {
    * Lifecycle hook that is called after component initialization.
    */
   ngOnInit(): void {
-    const isDirect: string = this.flight.allJourney.flights[0].flightDTO.length > 1 ? "Transit" : "Direct";
-    const isRefundable: string = this.flight.isRefundable ? "Refundable" : "Not Refundable";
+    const isDirect: number = this.flight.allJourney.flights[0].flightDTO.length;
+    const isRefundable: boolean = this.flight.isRefundable;
 
     const departureDate = this.flight.allJourney.flights[0].flightDTO[0].departureDate;
     const arrivalDate = this.flight.allJourney.flights[0].flightDTO[0].arrivalDate;

@@ -73,8 +73,9 @@ export class FilterComponent implements OnInit {
   handleAirlineChange(e: any) {
     const value = e.target.value;
     this.searchArray = this.getAirlines().filter((airline: string) =>
-      airline.toLowerCase().includes(this.search.toLowerCase())
+      airline.toLowerCase().includes(value.toLowerCase())
     );
+    console.log(this.searchArray);
   }
 
   /**

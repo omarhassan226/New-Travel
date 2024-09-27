@@ -70,9 +70,9 @@
       </mat-card>
       <mat-card class="info-box">
         {{
-          cardData.direction
-            ? ("DIRECT_FLIGHT" | translate)
-            : ("CONNECTING_FLIGHT" | translate)
+          cardData.direction > 1
+            ? ("CONNECTING_FLIGHT" | translate)
+            : ("DIRECT_FLIGHT" | translate)
         }}
       </mat-card>
     </div>

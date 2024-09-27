@@ -9,7 +9,7 @@
   "REFUNDABLE": "قابل للاسترداد",
   "NON_REFUNDABLE": "غير قابل للاسترداد",
   "DIRECT_FLIGHT": "رحلة مباشرة",
-  "CONNECTING_FLIGHT": "رحلة متصلة",
+  "CONNECTING_FLIGHT": "استراحه واحده",
   "CABIN_CLASS": "فئة المقصورة:",
   "DEPARTURE_TERMINAL": "Terminal المغادرة:",
   "BAGGAGE_ALLOWANCE": "حصة الأمتعة:",

@@ -87,6 +87,9 @@ export class FlightTravelsService {
    */
   filterAll() {
     this.flights = this.copyFlights.filter((flight) => {
+      if (flight.allJourney.flights[0].flightAirline.airlineName === 'EgyptAir ') {
+        console.log(flight.allJourney.flights[0].flightAirline.airlineName);
+      }
       if (
         this.filterByRefund !== null &&
         flight.isRefundable !== this.filterByRefund

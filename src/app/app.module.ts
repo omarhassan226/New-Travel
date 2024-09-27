@@ -14,6 +14,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LanguageToggleComponent } from './components/language/language.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { FilterNotFoundComponent } from './components/filter-not-found/filter-not-found.component';
 
 // Factory function to create the TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -30,6 +31,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FlightCardComponent,
     LanguageToggleComponent,
     NotFoundComponent,
+    FilterNotFoundComponent,
   ],
   imports: [
     BrowserModule,

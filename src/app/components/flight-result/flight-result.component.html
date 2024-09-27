@@ -38,6 +38,10 @@
       <app-language-toggle class="child1"></app-language-toggle>
     </div>
 
+    <app-filter-not-found
+      *ngIf="getFlights().length < 1"
+    ></app-filter-not-found>
+
     <!-- ============================ -->
     <!-- Flight Cards               -->
     <!-- ============================ -->
